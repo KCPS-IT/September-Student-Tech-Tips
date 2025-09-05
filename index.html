@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>September Tech Tips - Kansas City Public Schools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 25%, #d35400 50%, #c0392b 75%, #8e44ad 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            color: #d35400;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .subtitle {
+            color: #e67e22;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .kcps-logo {
+            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #ecf0f1;
+            border-radius: 25px;
+            display: inline-block;
+        }
+
+        .september-theme {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+            font-size: 1.1rem;
+            color: #8e44ad;
+        }
+
+        .leaf-icon {
+            font-size: 1.5rem;
+            color: #e67e22;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: white;
+        }
+
+        .safety-card .card-header {
+            border-color: #3498db;
+        }
+        .safety-card .card-icon {
+            background: #3498db;
+        }
+
+        .communication-card .card-header {
+            border-color: #2ecc71;
+        }
+        .communication-card .card-icon {
+            background: #2ecc71;
+        }
+
+        .phishing-card .card-header {
+            border-color: #e74c3c;
+        }
+        .phishing-card .card-icon {
+            background: #e74c3c;
+        }
+
+        .card h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .tip-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .tip-list li {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .tip-list li:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .safety-card .tip-list li {
+            border-color: #3498db;
+        }
+
+        .communication-card .tip-list li {
+            border-color: #2ecc71;
+        }
+
+        .phishing-card .tip-list li {
+            border-color: #e74c3c;
+        }
+
+        .tip-icon {
+            color: #f39c12;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .warning-icon {
+            color: #856404;
+            font-size: 1.5rem;
+            margin-top: 2px;
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 30px;
+        }
+
+        .footer h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .footer p {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .back-to-school {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 20px 0;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-school:hover {
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🍂 September Tech Tips 🍂</h1>
+            <div class="subtitle">Stay Safe, Smart, and Connected This Fall</div>
+            <div class="september-theme">
+                <span class="leaf-icon">🍁</span>
+                <span>Back to School Digital Safety Guide</span>
+                <span class="leaf-icon">🍁</span>
+            </div>
+            <div class="kcps-logo">Kansas City Public Schools</div>
+        </header>
+
+        <div class="content-grid">
+            <!-- Online Safety and Privacy Card -->
+            <div class="card safety-card">
+                <div class="card-header">
+                    <div class="card-icon">🛡️</div>
+                    <h2>Online Safety & Privacy</h2>
+                </div>
+                <p>Protect yourself and your personal information while navigating the digital world.</p>
+                
+                <ul class="tip-list">
+                    <li>
+                        <span class="tip-icon">🔒</span>
+                        <strong>Use Strong Passwords:</strong> Create unique passwords with a mix of letters, numbers, and symbols. Never share your passwords with anyone.
+                    </li>
+                    <li>
+                        <span class="tip-icon">👥</span>
+                        <strong>Think Before You Share:</strong> Don't post personal information like your address, phone number, or school schedule on social media.
+                    </li>
+                    <li>
+                        <span class="tip-icon">⚙️</span>
+                        <strong>Check Privacy Settings:</strong> Regularly review and update privacy settings on all your social media accounts and apps.
+                    </li>
+                    <li>
+                        <span class="tip-icon">📱</span>
+                        <strong>Be App Smart:</strong> Only download apps from official app stores and read permissions before installing.
+                    </li>
+                    <li>
+                        <span class="tip-icon">🌐</span>
+                        <strong>Secure Browsing:</strong> Look for "https://" and the lock icon when entering personal information on websites.
+                    </li>
+                </ul>
+
+                <div class="warning-box">
+                    <div class="warning-icon">⚠️</div>
+                    <div>
+                        <strong>Remember:</strong> Once something is posted online, it can be there forever. Think twice before posting photos, comments, or personal information.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Respectful Communication Card -->
+            <div class="card communication-card">
+                <div class="card-header">
+                    <div class="card-icon">💬</div>
+                    <h2>Respectful Online Communication</h2>
+                </div>
+                <p>Build positive digital relationships and create a better online environment for everyone.</p>
+                
+                <ul class="tip-list">
+                    <li>
+                        <span class="tip-icon">🤝</span>
+                        <strong>Treat Others with Kindness:</strong> Use the same respect online that you would show in person. Remember there's a real person behind every screen.
+                    </li>
+                    <li>
+                        <span class="tip-icon">🛑</span>
+                        <strong>Stop Cyberbullying:</strong> Don't participate in or share mean comments, embarrassing photos, or hurtful messages about others.
+                    </li>
+                    <li>
+                        <span class="tip-icon">💭</span>
+                        <strong>Think Before You Type:</strong> Read your message twice before sending. Ask yourself: "Would I say this face-to-face?"
+                    </li>
+                    <li>
+                        <span class="tip-icon">🗣️</span>
+                        <strong>Speak Up Safely:</strong> If you see cyberbullying or inappropriate behavior, report it to a trusted adult or use the platform's reporting features.
+                    </li>
+                    <li>
+                        <span class="tip-icon">🎯</span>
+                        <strong>Stay on Topic:</strong> Keep conversations relevant and avoid spam or off-topic messages that might annoy others.
+                    </li>
+                </ul>
+
+                <div class="warning-box">
+                    <div class="warning-icon">💡</div>
+                    <div>
+                        <strong>Golden Rule:</strong> Treat others online the way you want to be treated. Your words have power – use them to build up, not tear down.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phishing and Scams Card -->
+            <div class="card phishing-card">
+                <div class="card-header">
+                    <div class="card-icon">🎣</div>
+                    <h2>Recognizing Phishing & Scams</h2>
+                </div>
+                <p>Learn to identify and avoid online scams that try to steal your personal information or money.</p>
+                
+                <ul class="tip-list">
+                    <li>
+                        <span class="tip-icon">📧</span>
+                        <strong>Suspicious Emails:</strong> Be wary of emails asking for passwords, personal info, or money – especially if they create urgency or fear.
+                    </li>
+                    <li>
+                        <span class="tip-icon">🔗</span>
+                        <strong>Check Links Carefully:</strong> Hover over links to see the real URL before clicking. Be suspicious of shortened links from unknown sources.
+                    </li>
+                    <li>
+                        <span class="tip-icon">💰</span>
+                        <strong>Too Good to Be True:</strong> Free money, prizes, or "you've won" messages are usually scams. If it sounds too good to be true, it probably is.
+                    </li>
+                    <li>
+                        <span class="tip-icon">📞</span>
+                        <strong>Verify Requests:</strong> If someone claims to be from your bank, school, or a company, call them directly using official phone numbers to verify.
+                    </li>
+                    <li>
+                        <span class="tip-icon">🚨</span>
+                        <strong>Red Flags:</strong> Poor grammar, urgent deadlines, requests for gift cards, or threats are all warning signs of scams.
+                    </li>
+                </ul>
+
+                <div class="warning-box">
+                    <div class="warning-icon">🚨</div>
+                    <div>
+                        <strong>When in Doubt:</strong> Don't click, don't download, don't share personal information. Ask a trusted adult, teacher, or parent for help identifying suspicious messages.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <h3>🍂 Have a Safe and Smart September! 🍂</h3>
+            <p>These tips will help you navigate the digital world safely as you start the new school year.</p>
+            <p>Remember: When you're unsure about something online, it's always okay to ask for help!</p>
+            
+            <a href="#" class="back-to-school">
+                📚 Share These Tips with Classmates 📚
+            </a>
+            
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #ecf0f1;">
+                <p><strong>Kansas City Public Schools - Digital Citizenship Initiative</strong></p>
+                <p style="font-size: 0.9rem; color: #95a5a6;">
+                    For more resources or to report concerns, contact your school's technology coordinator or counselor.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Add some interactive autumn effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Animate the leaf icons
+            const leafIcons = document.querySelectorAll('.leaf-icon');
+            leafIcons.forEach((leaf, index) => {
+                setInterval(() => {
+                    leaf.style.transform = 'rotate(' + (Math.sin(Date.now() * 0.001 + index) * 10) + 'deg)';
+                }, 50);
+            });
+        });
+    </script>
+</body>
+</html>
