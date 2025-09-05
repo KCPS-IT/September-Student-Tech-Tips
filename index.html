@@ -16,37 +16,63 @@
             line-height: 1.6;
             color: #2c3e50;
             background: linear-gradient(135deg, #f39c12 0%, #e67e22 25%, #d35400 50%, #c0392b 75%, #8e44ad 100%);
+            background-attachment: fixed;
+            background-size: 400% 400%;
             min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: clamp(15px, 3vw, 30px);
+            width: 100%;
         }
 
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
+            border-radius: clamp(10px, 2vw, 20px);
+            padding: clamp(20px, 4vw, 40px);
+            margin-bottom: clamp(20px, 3vw, 30px);
             text-align: center;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .header:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
         }
 
         .header h1 {
             color: #d35400;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            margin-bottom: clamp(8px, 1.5vw, 15px);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
 
         .header .subtitle {
             color: #e67e22;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            margin-bottom: clamp(10px, 2vw, 20px);
             font-weight: 600;
         }
 
@@ -78,44 +104,81 @@
 
         .content-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+            gap: clamp(20px, 3vw, 40px);
+            margin-bottom: clamp(20px, 3vw, 30px);
         }
 
         .card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
+            border-radius: clamp(10px, 2vw, 20px);
+            padding: clamp(20px, 4vw, 35px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover::before {
+            animation: shimmer 0.6s ease-in-out;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
         }
 
         .card-header {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
+            gap: clamp(10px, 2vw, 20px);
+            margin-bottom: clamp(15px, 3vw, 25px);
+            padding-bottom: clamp(10px, 2vw, 20px);
             border-bottom: 3px solid;
         }
 
         .card-icon {
-            font-size: 2.5rem;
-            width: 60px;
-            height: 60px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            width: clamp(50px, 8vw, 70px);
+            height: clamp(50px, 8vw, 70px);
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
             color: white;
+            transition: all 0.3s ease;
+            animation: iconFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(5deg); }
+            75% { transform: translateY(5px) rotate(-5deg); }
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(10deg);
         }
 
         .safety-card .card-header {
@@ -141,27 +204,52 @@
 
         .card h2 {
             color: #2c3e50;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
             margin: 0;
+            font-weight: 700;
         }
 
         .tip-list {
             list-style: none;
-            margin: 20px 0;
+            margin: clamp(15px, 3vw, 25px) 0;
         }
 
         .tip-list li {
-            margin-bottom: 15px;
-            padding: 15px;
+            margin-bottom: clamp(12px, 2vw, 18px);
+            padding: clamp(12px, 3vw, 20px);
             background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 4px solid;
-            transition: all 0.3s ease;
+            border-radius: clamp(8px, 1.5vw, 12px);
+            border-left: clamp(3px, 0.5vw, 5px) solid;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+            transition: width 0.4s ease;
+            z-index: 1;
         }
 
         .tip-list li:hover {
             background: #e9ecef;
-            transform: translateX(5px);
+            transform: translateX(8px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tip-list li:hover::before {
+            width: 100%;
+        }
+
+        .tip-list li > * {
+            position: relative;
+            z-index: 2;
         }
 
         .safety-card .tip-list li {
@@ -238,25 +326,117 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
+        /* Enhanced responsive breakpoints */
+        @media (max-width: 480px) {
+            .september-theme {
+                flex-direction: column;
+                gap: 5px;
             }
             
-            .header h1 {
-                font-size: 2rem;
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .tip-list li:hover {
+                transform: translateX(4px) scale(1.01);
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .content-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Ultra-wide screen support */
+        @media (min-width: 1600px) {
+            .container {
+                max-width: 1600px;
             }
             
             .content-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .card {
-                padding: 20px;
+                grid-template-columns: repeat(4, 1fr);
             }
         }
-    </style>
+
+        /* High DPI display optimization */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .card {
+                backdrop-filter: blur(15px);
+            }
+            
+            .header {
+                backdrop-filter: blur(15px);
+            }
+        }
+
+        /* Reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .card:hover {
+                transform: translateY(-2px);
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .card, .header, .footer {
+                background: rgba(45, 55, 72, 0.95);
+                color: #e2e8f0;
+            }
+            
+            .card h2, .header h1 {
+                color: #f7fafc;
+            }
+            
+            .tip-list li {
+                background: rgba(74, 85, 104, 0.6);
+                color: #e2e8f0;
+            }
+            
+            .tip-list li:hover {
+                background: rgba(74, 85, 104, 0.8);
+            }
+            
+            .warning-box {
+                background: rgba(45, 55, 72, 0.8) !important;
+                border-color: #68d391 !important;
+                color: #f7fafc !important;
+            }
+            
+            .warning-box .warning-icon {
+                color: #68d391 !important;
+            }
+            
+            .warning-box strong {
+                color: #f7fafc !important;
+            }
+            
+            /* Ensure all text in warning boxes is readable */
+            .warning-box div {
+                color: #e2e8f0 !important;
+            }
+        }
+  </style>
 </head>
 <body>
     <div class="container">
@@ -455,28 +635,164 @@
     </div>
 
     <script>
-        // Add some interactive autumn effects
+        // Enhanced dynamic interactions and animations
         document.addEventListener('DOMContentLoaded', function() {
-            // Add hover effects to cards
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
+                    }
                 });
+            }, observerOptions);
+
+            // Animate cards on scroll
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px) scale(0.9)';
+                card.style.transition = `all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.1}s`;
+                observer.observe(card);
+            });
+
+            // Enhanced leaf animation with physics
+            const leafIcons = document.querySelectorAll('.leaf-icon');
+            leafIcons.forEach((leaf, index) => {
+                let rotation = 0;
+                let swayOffset = index * Math.PI / 3;
                 
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
+                const animateLeaf = () => {
+                    const time = Date.now() * 0.001;
+                    const sway = Math.sin(time + swayOffset) * 15;
+                    const bounce = Math.sin(time * 2 + swayOffset) * 3;
+                    rotation += 0.5;
+                    
+                    leaf.style.transform = `rotate(${rotation + sway}deg) translateY(${bounce}px)`;
+                    requestAnimationFrame(animateLeaf);
+                };
+                
+                animateLeaf();
+            });
+
+            // Dynamic background particles
+            createFloatingElements();
+
+            // Smooth scroll for any internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
                 });
             });
 
-            // Animate the leaf icons
-            const leafIcons = document.querySelectorAll('.leaf-icon');
-            leafIcons.forEach((leaf, index) => {
-                setInterval(() => {
-                    leaf.style.transform = 'rotate(' + (Math.sin(Date.now() * 0.001 + index) * 10) + 'deg)';
-                }, 50);
+            // Touch-friendly interactions for mobile
+            if ('ontouchstart' in window) {
+                cards.forEach(card => {
+                    card.addEventListener('touchstart', function() {
+                        this.style.transform = 'translateY(-5px) scale(1.01)';
+                    });
+                    
+                    card.addEventListener('touchend', function() {
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 150);
+                    });
+                });
+            }
+
+            // Keyboard navigation support
+            cards.forEach((card, index) => {
+                card.setAttribute('tabindex', '0');
+                card.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        this.click();
+                    }
+                });
+            });
+
+            // Dynamic resize handling
+            let resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    // Recalculate any dynamic elements if needed
+                    updateDynamicSizing();
+                }, 250);
             });
         });
+
+        // Create floating autumn elements
+        function createFloatingElements() {
+            const container = document.body;
+            const elements = ['🍂', '🍁', '🌰', '🍃'];
+            
+            for (let i = 0; i < 8; i++) {
+                const element = document.createElement('div');
+                element.textContent = elements[Math.floor(Math.random() * elements.length)];
+                element.style.cssText = `
+                    position: fixed;
+                    font-size: ${Math.random() * 20 + 15}px;
+                    left: ${Math.random() * 100}vw;
+                    top: -50px;
+                    pointer-events: none;
+                    z-index: -1;
+                    opacity: 0.3;
+                    animation: fall ${Math.random() * 10 + 10}s linear infinite;
+                    animation-delay: ${Math.random() * 5}s;
+                `;
+                container.appendChild(element);
+            }
+
+            // Add CSS for falling animation
+            if (!document.querySelector('#dynamic-styles')) {
+                const style = document.createElement('style');
+                style.id = 'dynamic-styles';
+                style.textContent = `
+                    @keyframes fall {
+                        0% {
+                            transform: translateY(-100px) rotate(0deg);
+                            opacity: 0;
+                        }
+                        10% {
+                            opacity: 0.3;
+                        }
+                        90% {
+                            opacity: 0.3;
+                        }
+                        100% {
+                            transform: translateY(100vh) rotate(360deg);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // Update dynamic sizing for ultra-responsive design
+        function updateDynamicSizing() {
+            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+            const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+            
+            // Update CSS custom properties for dynamic sizing
+            document.documentElement.style.setProperty('--dynamic-vw', `${vw}px`);
+            document.documentElement.style.setProperty('--dynamic-vh', `${vh}px`);
+        }
+
+        // Initialize dynamic sizing
+        updateDynamicSizing();
     </script>
 </body>
 </html>
